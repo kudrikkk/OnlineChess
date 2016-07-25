@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\user\User;
 use Yii;
 use yii\web\Controller;
 use app\models\user\LoginForm;
@@ -20,11 +21,11 @@ class UserController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        $model = new User();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->render('registrationSuccess');
         }
-        return $this->render('login', [
+        return $this->render('registration', [
             'model' => $model,
         ]);
     }
