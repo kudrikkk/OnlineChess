@@ -1,0 +1,2 @@
+# forbid to commit secret configs
+db.php
