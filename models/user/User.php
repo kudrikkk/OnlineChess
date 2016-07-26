@@ -57,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public function validatePassword($password) {
-        return $this->password === $password;
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 
     /**
@@ -105,5 +105,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+            $this->password = $hash;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
