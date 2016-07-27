@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\user\User;
 use Yii;
 use yii\web\Controller;
+use app\models\user\User;
 use app\models\user\LoginForm;
 
 class UserController extends Controller
