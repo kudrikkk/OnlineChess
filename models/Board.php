@@ -13,7 +13,7 @@ use yii\base\Model;
 
 class Board extends Model
 {
-    public static function getBoard($game_id)
+    public static function getPieces($game_id)
     {
         $game = Game::findOne($game_id);
         if (!$game) {
@@ -63,5 +63,33 @@ class Board extends Model
         }
 
         return $pieces;
+    }
+
+    public static function getBoard($game_id)
+    {
+        $game = Game::findOne($game_id);
+        if (!$game) {
+            return null;
+        }
+
+        $board = [];
+
+        for ($i = 1; $i <= 8; $i++) {
+            $board[$i] = [];
+            for ($j = 1; $j <= 8; $j++) {
+                $board[$i][$j] = [
+                    'piece_id' => '',
+                    'isSelected' => false,
+                ];
+            }
+        }
+
+        foreach (self::getPieces($game_id) as $piece) {
+            $x = $piece['x'];
+            $y = $piece['y'];
+            $board[$x][$y]['piece_id'] = $piece['id'];
+        }
+
+        return $board;
     }
 }
