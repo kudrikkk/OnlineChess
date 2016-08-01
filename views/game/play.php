@@ -3,6 +3,7 @@
 /** @var \app\models\Game $game */
 
 use yii\helpers\Html;
+use app\models\Board;
 
 ?>
 
@@ -21,5 +22,5 @@ use yii\helpers\Html;
     <?php endif ?>
 </h1>
 <p>
-<pre><?= print_r($game) ?></pre>
+<pre><?= print_r(Board::getBoard($game->id)) ?></pre>
 </p>

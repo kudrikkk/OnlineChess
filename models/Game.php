@@ -125,4 +125,9 @@ class Game extends ActiveRecord
             'winner_id' => 'Winner ID',
         ];
     }
+
+    public function getBoard()
+    {
+
+    }
 }
