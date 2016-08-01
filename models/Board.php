@@ -41,7 +41,7 @@ class Board extends Model
                     ->andWhere(['to_y' => Piece::PIECES[$key]['default_y']])
                     ->one()) {
 
-
+                $captured = true;
             }
 
             if ($captured) { }
