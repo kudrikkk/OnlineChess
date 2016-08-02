@@ -1,0 +1,31 @@
+table {
+    border-collapse: collapse;
+}
+
+td {
+
+    border: 1px solid black; /* Параметры рамки */
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+}
+
+.blackcell {
+    background-color: black;
+    width: 50px;
+    height: 50px;
+
+}
+
+.whitecell {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+}
+.boardpart {
+    height: 100%;
+    width: 70%;
+    display: inline-block;
+}
+.historypart {
+    height: 100%;
+    width: 30%;
+}
