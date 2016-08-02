@@ -3,6 +3,7 @@
 namespace app\models\pieces;
 
 use app\models\Board;
+use app\models\GameAction;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -28,9 +29,19 @@ abstract class Piece extends Model
         return (1 <= $x) && ($x <= 8) && (1 <= $y) && ($y <= 8);
     }
 
-    public function getFigureColor($board, $x, $y)
+    public function getFigureColor()
     {
         return $this->color;
+    }
+
+    public function wasMoved(Board $board)
+    {
+        $game_id = $board->game_id;
+        $move = GameAction::find()
+            ->where(['game_id' => $game_id, 'piece_id' => $this->piece_id])
+            ->limit(1)
+            ->one();
+        return $move ? true : false;
     }
 
     abstract function getPossibleMoves(Board $board);
