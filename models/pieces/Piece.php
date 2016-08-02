@@ -48,7 +48,12 @@ abstract class Piece extends Model
 
     abstract function isMovePossible(Board $board);
 
-    static function pieceFactory($piece_id, $x, $y)
+    public static function areSameColor(Piece $first, Piece $second)
+    {
+        return $first->color === $second->color;
+    }
+
+    public static function pieceFactory($piece_id, $x, $y)
     {
         if ($piece_id === '') {
             return new EmptyCell([

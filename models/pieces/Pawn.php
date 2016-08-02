@@ -20,7 +20,6 @@ class Pawn extends Piece
 
     public function getPossibleMoves(Board $board)
     {
-        // TODO: Implement getPossibleMoves() method.
         return [];
     }
 
