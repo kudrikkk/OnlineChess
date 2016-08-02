@@ -24,6 +24,7 @@ class GameAction extends ActiveRecord
     const EN_PASSANT   = 3;
     const PROMOTION    = 4;
     const CHECKMATE    = 5;
+    const STALEMATE    = 6;
 
     /**
      * @inheritdoc
