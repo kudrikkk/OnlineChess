@@ -22,5 +22,7 @@ use app\models\Board;
     <?php endif ?>
 </h1>
 <p>
-<pre><?= print_r(Board::getBoard($game->id)) ?></pre>
+<pre><?= print_r(Board::getBoardArray($game->id)) ?></pre>
+<pre><?= print_r(\app\models\pieces\Piece::pieceFactory('pb1', 1, 1)) ?></pre>
+<pre><?= print_r((new \app\models\Board(['game_id' => $game->id]))) ?></pre>
 </p>

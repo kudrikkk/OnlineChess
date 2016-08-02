@@ -9,6 +9,7 @@
 namespace app\models;
 
 use app\models\pieces\Piece;
+use yii\base\Exception;
 use yii\base\Model;
 
 class Board extends Model
@@ -53,7 +54,35 @@ class Board extends Model
         'pb8' => ['default_x' => 8, 'default_y' => 7],
     ];
 
-    public static function getPieces($game_id)
+
+    public $game_id;
+    public $board;
+
+
+    public function __construct(array $config)
+    {
+        parent::__construct($config);
+
+        $game = Game::findOne($this->game_id);
+        if ($game == null) {
+            throw new Exception('Game isn\'t founded');
+        }
+
+        $this->board = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $this->board[$i] = [];
+        }
+        $boardArray = self::getBoardArray($this->game_id);
+
+
+        for ($i = 1; $i <= 8; $i++) {
+            for ($j = 1; $j <= 8; $j++) {
+                $this->board[$i][$j] = Piece::pieceFactory($boardArray[$i][$j]['piece_id'], $i, $j);
+            }
+        }
+    }
+
+    public static function getPiecesArray($game_id)
     {
         $game = Game::findOne($game_id);
         if (!$game) {
@@ -74,30 +103,32 @@ class Board extends Model
                     ->andWhere(['>', 'id', $lastMove->id])
                     ->andWhere(['to_x' => $lastMove->to_x])
                     ->andWhere(['to_y' => $lastMove->to_y])
-                    ->one()) {
+                    ->one()
+            ) {
 
                 $captured = true;
             } else if (!$lastMove && GameAction::find()
                     ->where(['game_id' => $game_id])
                     ->andWhere(['to_x' => self::PIECES[$key]['default_x']])
                     ->andWhere(['to_y' => self::PIECES[$key]['default_y']])
-                    ->one()) {
+                    ->one()
+            ) {
 
                 $captured = true;
             }
 
-            if ($captured) { }
-            else if (!$lastMove) {
+            if ($captured) {
+            } else if (!$lastMove) {
                 array_push($pieces, [
                     'id' => $key,
-                    'x'  => self::PIECES[$key]['default_x'],
-                    'y'  => self::PIECES[$key]['default_y'],
+                    'x' => self::PIECES[$key]['default_x'],
+                    'y' => self::PIECES[$key]['default_y'],
                 ]);
             } else {
                 array_push($pieces, [
                     'id' => $key,
-                    'x'  => $lastMove->to_x,
-                    'y'  => $lastMove->to_y,
+                    'x' => $lastMove->to_x,
+                    'y' => $lastMove->to_y,
                 ]);
             }
         }
@@ -105,7 +136,7 @@ class Board extends Model
         return $pieces;
     }
 
-    public static function getBoard($game_id)
+    public static function getBoardArray($game_id)
     {
         $game = Game::findOne($game_id);
         if (!$game) {
@@ -124,7 +155,7 @@ class Board extends Model
             }
         }
 
-        foreach (self::getPieces($game_id) as $piece) {
+        foreach (self::getPiecesArray($game_id) as $piece) {
             $x = $piece['x'];
             $y = $piece['y'];
             $board[$x][$y]['piece_id'] = $piece['id'];
@@ -132,4 +163,5 @@ class Board extends Model
 
         return $board;
     }
+
 }
