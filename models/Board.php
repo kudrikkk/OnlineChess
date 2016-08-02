@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kirill
- * Date: 7/30/16
- * Time: 9:31 PM
- */
 
 namespace app\models;
 
@@ -163,5 +157,4 @@ class Board extends Model
 
         return $board;
     }
-
 }

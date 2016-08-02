@@ -46,11 +46,21 @@ abstract class Piece extends Model
 
     abstract function getPossibleMoves(Board $board);
 
-    abstract function isMovePossible(Board $board);
+    public function isMovePossible(Board $board, $to_x, $to_y)
+    {
+        if (!self::onBoard($to_x, $to_y)) return false;
+
+        // TODO: are to_x and to_y inside getPossibleMoves()
+    }
 
     public static function areSameColor(Piece $first, Piece $second)
     {
         return $first->color === $second->color;
+    }
+
+    public function isEmptyCell()
+    {
+        return false;
     }
 
     public static function pieceFactory($piece_id, $x, $y)

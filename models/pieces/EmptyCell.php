@@ -23,8 +23,8 @@ class EmptyCell extends Piece
         return [];
     }
 
-    public function isMovePossible(Board $board)
+    public function isEmptyCell()
     {
-        return [];
+        return true;
     }
 }

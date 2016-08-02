@@ -23,10 +23,4 @@ class King extends Piece
         // TODO: Implement getPossibleMoves() method.
         return [];
     }
-
-    public function isMovePossible(Board $board)
-    {
-        // TODO: Implement isMovePossible() method.
-        return [];
-    }
 }
