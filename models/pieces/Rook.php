@@ -20,7 +20,8 @@ class Rook extends Piece
 
     public function getPossibleMoves(Board $board)
     {
-        // TODO: Implement getPossibleMoves() method.
-        return [];
+        $possibleMoves = array_merge($this->getPossibleVerticalMoves($board),
+            $this->getPossibleHorizontalMoves($board));
+        return $possibleMoves;
     }
 }

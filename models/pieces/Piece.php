@@ -44,7 +44,107 @@ abstract class Piece extends Model
         return $move ? true : false;
     }
 
+    private static function addMoveToArray(array &$array, $x, $y)
+    {
+        $array[] = ['x' => $x, 'y' => $y];
+    }
+
     abstract function getPossibleMoves(Board $board);
+
+    protected function getPossibleDiagonalMoves(Board $board)
+    {
+        $possibleMoves = [];
+        $x = $this->x;
+        $y = $this->y;
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i++, $j++) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i--, $j++) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i++, $j--) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i--, $j--) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+
+        return $possibleMoves;
+    }
+
+    protected function getPossibleVerticalMoves(Board $board)
+    {
+        $possibleMoves = [];
+        $x = $this->x;
+        $y = $this->y;
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $j++) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $j--) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+    }
+
+    protected function getPossibleHorizontalMoves(Board $board)
+    {
+        $possibleMoves = [];
+        $x = $this->x;
+        $y = $this->y;
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i++) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+        for ($i = $x, $j = $y; self::onBoard($i, $j); $i--) {
+            if (!$board[$i][$j]->isEmptyCell()) {
+                if (!self::areSameColor($this, $board[$i][$j])) {
+                    self::addMoveToArray($possibleMoves, $i, $j);
+                }
+                break;
+            }
+            self::addMoveToArray($possibleMoves, $i, $j);
+        }
+    }
 
     public function isMovePossible(Board $board, $to_x, $to_y)
     {

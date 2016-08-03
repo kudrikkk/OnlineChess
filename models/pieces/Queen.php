@@ -20,7 +20,9 @@ class Queen extends Piece
 
     public function getPossibleMoves(Board $board)
     {
-        // TODO: Implement getPossibleMoves() method.
-        return [];
+        $possibleMoves = array_merge($this->getPossibleDiagonalMoves($board),
+            $this->getPossibleHorizontalMoves($board),
+            $this->getPossibleVerticalMoves($board));
+        return $possibleMoves;
     }
 }

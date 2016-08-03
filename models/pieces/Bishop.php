@@ -20,7 +20,7 @@ class Bishop extends Piece
 
     public function getPossibleMoves(Board $board)
     {
-        // TODO: Implement getPossibleMoves() method.
-        return [];
+        $possibleMoves = $this->getPossibleDiagonalMoves($board);
+        return $possibleMoves;
     }
 }

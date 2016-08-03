@@ -28,53 +28,55 @@ class Pawn extends Piece
         }
     }
 
+    //TODO: use addMoveToArray method
     private function getPossibleMovesWhite($board)
     {
         if ($this->y === 8) return [];
 
-        $array = [];
+        $possibleMoves = [];
         $x = $this->x;
         $y = $this->y;
         $straight = $board[$x][$y + 1];
         if ($straight->isEmptyCell()) {
-            $array[] = ['x' => $x, 'y' => $y+1];
+            $possibleMoves[] = ['x' => $x, 'y' => $y+1];
         }
         
         $straightLeft = $board[x-1][y+1];
         if ($x != 1 && !$straightLeft->isEmptyCell() && !self::areSameColor($this, $straightLeft)) {
-            $array[] = ['x' => $x-1, 'y' => $y+1];
+            $possibleMoves[] = ['x' => $x-1, 'y' => $y+1];
         }
         
         $straightRight = $board[x+1][y+1];
         if ($x != 8 && !$straightRight->isEmptyCell() && !self::areSameColor($this, $straightRight)) {
-            $array[] = ['x' => $x+1, 'y' => $y+1];
+            $possibleMoves[] = ['x' => $x+1, 'y' => $y+1];
         }
 
-        return $array;
+        return $possibleMoves;
     }
 
+    //TODO: use addMoveToArray method
     private function getPossibleMovesBlack($board)
     {
         if ($this->y === 1) return [];
 
-        $array = [];
+        $possibleMoves = [];
         $x = $this->x;
         $y = $this->y;
         $straight = $board[$x][$y - 1];
         if ($straight->isEmptyCell()) {
-            $array[] = ['x' => $x, 'y' => $y-1];
+            $possibleMoves[] = ['x' => $x, 'y' => $y-1];
         }
 
         $straightLeft = $board[x-1][y-1];
         if ($x != 1 && !$straightLeft->isEmptyCell() && !self::areSameColor($this, $straightLeft)) {
-            $array[] = ['x' => $x-1, 'y' => $y-1];
+            $possibleMoves[] = ['x' => $x-1, 'y' => $y-1];
         }
 
         $straightRight = $board[x+1][y-1];
         if ($x != 8 && !$straightRight->isEmptyCell() && !self::areSameColor($this, $straightRight)) {
-            $array[] = ['x' => $x+1, 'y' => $y-1];
+            $possibleMoves[] = ['x' => $x+1, 'y' => $y-1];
         }
 
-        return $array;
+        return $possibleMoves;
     }
 }
